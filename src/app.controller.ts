@@ -1,4 +1,5 @@
 import { Controller, Get } from "@nestjs/common";
+// biome-ignore lint/style/useImportType: NestJS の DI では値インポートが必要
 import { AppService } from "./app.service";
 
 @Controller()
