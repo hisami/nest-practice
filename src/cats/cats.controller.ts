@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import type { CatsService } from './cats.service';
+// biome-ignore lint/style/useImportType: NestJS の DI では値インポートが必要
+import { CatsService } from './cats.service';
 import type { CreateCatsDto } from './create-cats.dto';
 
 @Controller('cats')
