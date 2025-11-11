@@ -1,6 +1,7 @@
 import { ApolloDriver, type ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
@@ -10,7 +11,11 @@ import { CatsModule } from './cats/cats.module';
 		CatsModule,
 		GraphQLModule.forRoot<ApolloDriverConfig>({
 			driver: ApolloDriver,
-			playground: true,
+			graphiql: true,
+			typePaths: ['**/*.graphql'],
+			definitions: {
+				path: join(process.cwd(), 'src/graphql.ts'),
+			},
 		}),
 	],
 	controllers: [AppController],
