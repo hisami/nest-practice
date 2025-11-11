@@ -8,21 +8,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export interface Author {
+export class Author {
     id: number;
     firstName?: Nullable<string>;
     lastName?: Nullable<string>;
     posts?: Nullable<Nullable<Post>[]>;
 }
 
-export interface Post {
+export class Post {
     id: number;
     title: string;
     votes?: Nullable<number>;
 }
 
-export interface IQuery {
-    author(id: number): Nullable<Author> | Promise<Nullable<Author>>;
+export abstract class IQuery {
+    abstract author(id: number): Nullable<Author> | Promise<Nullable<Author>>;
 }
 
 type Nullable<T> = T | null;
