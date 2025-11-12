@@ -1,15 +1,16 @@
+import { Inject } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { PostsService } from '../posts/posts.service';
+import { PUB_SUB } from '../pubsub/pubsub.module';
 import { AuthorsService } from './authors.service';
-
-const pubSub = new PubSub();
 
 @Resolver('Author')
 export class AuthorsResolver {
 	constructor(
 		private readonly authorsService: AuthorsService,
 		private readonly postsService: PostsService,
+		@Inject(PUB_SUB) private readonly pubSub: PubSub,
 	) {}
 
 	@Query('author')
@@ -29,6 +30,7 @@ export class AuthorsResolver {
 	})
 	commentAdded() {
 		console.log('サブスクライバが呼ばれたよ');
-		return pubSub.asyncIterableIterator('commentAdded');
+		// 追加されたコメントを返す
+		return this.pubSub.asyncIterableIterator('commentAdded');
 	}
 }

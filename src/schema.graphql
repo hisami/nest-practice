@@ -26,5 +26,5 @@ type Mutation {
 }
 
 type Subscription {
-	commentAdded(title: String!): Comment
+	commentAdded: Comment!
 }

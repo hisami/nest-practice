@@ -37,7 +37,7 @@ export abstract class IMutation {
 }
 
 export abstract class ISubscription {
-    abstract commentAdded(title: string): Nullable<Comment> | Promise<Nullable<Comment>>;
+    abstract commentAdded(): Comment | Promise<Comment>;
 }
 
 type Nullable<T> = T | null;

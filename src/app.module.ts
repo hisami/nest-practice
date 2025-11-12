@@ -6,10 +6,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthorsModule } from './authors/authors.module';
 import { CatsModule } from './cats/cats.module';
+import { CommentsModule } from './comments/comments.module';
+import { CommentsService } from './comments/comments.service';
 import { PostsModule } from './posts/posts.module';
 import { PostsService } from './posts/posts.service';
-import { CommentsService } from './comments/comments.service';
-import { CommentsModule } from './comments/comments.module';
 
 @Module({
 	imports: [
@@ -17,7 +17,8 @@ import { CommentsModule } from './comments/comments.module';
 		AuthorsModule,
 		GraphQLModule.forRoot<ApolloDriverConfig>({
 			driver: ApolloDriver,
-			graphiql: true,
+			// graphiql: true,
+			playground: true,
 			typePaths: ['**/*.graphql'],
 			definitions: {
 				path: join(process.cwd(), 'src/graphql.ts'),
