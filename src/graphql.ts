@@ -21,12 +21,23 @@ export class Post {
     votes?: Nullable<number>;
 }
 
+export class Comment {
+    id: number;
+    content: string;
+}
+
 export abstract class IQuery {
     abstract author(id: number): Nullable<Author> | Promise<Nullable<Author>>;
 }
 
 export abstract class IMutation {
     abstract upvotePost(postId: number): Nullable<Post> | Promise<Nullable<Post>>;
+
+    abstract addComment(postId: number, content: string): Nullable<Comment> | Promise<Nullable<Comment>>;
+}
+
+export abstract class ISubscription {
+    abstract commentAdded(title: string): Nullable<Comment> | Promise<Nullable<Comment>>;
 }
 
 type Nullable<T> = T | null;

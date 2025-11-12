@@ -6,8 +6,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthorsModule } from './authors/authors.module';
 import { CatsModule } from './cats/cats.module';
-import { PostsService } from './posts/posts.service';
 import { PostsModule } from './posts/posts.module';
+import { PostsService } from './posts/posts.service';
+import { CommentsService } from './comments/comments.service';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
 	imports: [
@@ -21,10 +23,12 @@ import { PostsModule } from './posts/posts.module';
 				path: join(process.cwd(), 'src/graphql.ts'),
 				outputAs: 'class',
 			},
+			installSubscriptionHandlers: true,
 		}),
 		PostsModule,
+		CommentsModule,
 	],
 	controllers: [AppController],
-	providers: [AppService, PostsService],
+	providers: [AppService, PostsService, CommentsService],
 })
 export class AppModule {}

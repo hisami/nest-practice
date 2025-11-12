@@ -11,10 +11,20 @@ type Post {
 	votes: Int
 }
 
+type Comment {
+	id: Int!
+	content: String!
+}
+
 type Query {
 	author(id: Int!): Author
 }
 
 type Mutation {
 	upvotePost(postId: Int!): Post
+	addComment(postId: Int!, content: String!): Comment
+}
+
+type Subscription {
+	commentAdded(title: String!): Comment
 }
