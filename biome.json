@@ -21,6 +21,9 @@
 					"level": "warn",
 					"fix": "safe"
 				}
+			},
+			"style": {
+				"useImportType": "off"
 			}
 		}
 	},

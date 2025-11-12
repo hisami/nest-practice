@@ -6,6 +6,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthorsModule } from './authors/authors.module';
 import { CatsModule } from './cats/cats.module';
+import { PostsService } from './posts/posts.service';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
 	imports: [
@@ -20,8 +22,9 @@ import { CatsModule } from './cats/cats.module';
 				outputAs: 'class',
 			},
 		}),
+		PostsModule,
 	],
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [AppService, PostsService],
 })
 export class AppModule {}
