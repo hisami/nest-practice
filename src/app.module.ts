@@ -1,5 +1,5 @@
 import { ApolloDriver, type ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { AppController } from './app.controller';
@@ -8,6 +8,7 @@ import { AuthorsModule } from './authors/authors.module';
 import { CatsModule } from './cats/cats.module';
 import { CommentsModule } from './comments/comments.module';
 import { CommentsService } from './comments/comments.service';
+import { LoggerMiddleware } from './middleware/logger.middleware';
 import { PostsModule } from './posts/posts.module';
 import { PostsService } from './posts/posts.service';
 
@@ -32,4 +33,8 @@ import { PostsService } from './posts/posts.service';
 	controllers: [AppController],
 	providers: [AppService, PostsService, CommentsService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+	configure(consumer: MiddlewareConsumer) {
+		consumer.apply(LoggerMiddleware).forRoutes('*');
+	}
+}
