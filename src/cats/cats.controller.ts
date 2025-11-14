@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-// biome-ignore lint/style/useImportType: NestJS の DI では値インポートが必要
+import { User, type UserType } from 'src/common/user.decorator';
 import { CatsService } from './cats.service';
 import type { CreateCatsDto } from './create-cats.dto';
 
@@ -13,7 +13,7 @@ export class CatsController {
 	}
 
 	@Get()
-	findAll() {
+	findAll(@User() user: UserType) {
 		return this.catsService.findAll();
 	}
 }
