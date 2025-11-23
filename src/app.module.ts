@@ -18,8 +18,8 @@ import { PostsService } from './posts/posts.service';
 		AuthorsModule,
 		GraphQLModule.forRoot<ApolloDriverConfig>({
 			driver: ApolloDriver,
-			// graphiql: true,
-			playground: true,
+			graphiql: true,
+			// playground: true,
 			typePaths: ['**/*.graphql'],
 			definitions: {
 				path: join(process.cwd(), 'src/graphql.ts'),
