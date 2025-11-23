@@ -1,6 +1,7 @@
 import { Inject } from '@nestjs/common';
 import {
 	Args,
+	Context,
 	Mutation,
 	Parent,
 	Query,
@@ -8,11 +9,18 @@ import {
 	Resolver,
 	Subscription,
 } from '@nestjs/graphql';
+import type DataLoader from 'dataloader';
 import { PubSub } from 'graphql-subscriptions';
 import { Author } from '../graphql';
-import { PostsService } from '../posts/posts.service';
+import { type PostDbEntity, PostsService } from '../posts/posts.service';
 import { PUB_SUB } from '../pubsub/pubsub.module';
 import { AuthorsService } from './authors.service';
+
+interface GraphQLContext {
+	loaders: {
+		postsByAuthorId: DataLoader<number, PostDbEntity[]>;
+	};
+}
 
 @Resolver('Author')
 export class AuthorsResolver {
@@ -28,9 +36,9 @@ export class AuthorsResolver {
 	}
 
 	@ResolveField('posts')
-	async posts(@Parent() author: Author) {
+	async posts(@Parent() author: Author, @Context() context: GraphQLContext) {
 		const { id } = author;
-		return this.postsService.findByAuthorId(id);
+		return context.loaders.postsByAuthorId.load(id);
 	}
 
 	@Mutation()

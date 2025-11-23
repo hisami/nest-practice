@@ -1,6 +1,7 @@
 import { ApolloDriver, type ApolloDriverConfig } from '@nestjs/apollo';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import DataLoader from 'dataloader';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -26,6 +27,21 @@ import { PostsService } from './posts/posts.service';
 				outputAs: 'class',
 			},
 			installSubscriptionHandlers: true,
+			// DataLoaderの設定を追加
+			context: () => {
+				return {
+					loaders: {
+						postsByAuthorId: new DataLoader<number, any[]>(
+							async (authorIds: number[]) => {
+								const postsService = new PostsService();
+								return authorIds.map((authorId) =>
+									postsService.findByAuthorId(authorId),
+								);
+							},
+						),
+					},
+				};
+			},
 		}),
 		PostsModule,
 		CommentsModule,

@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import type { Post } from '../graphql';
 
 export interface PostDbEntity {
 	id: number;
