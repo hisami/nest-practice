@@ -19,6 +19,7 @@ export class Post {
     id: number;
     title: string;
     votes?: Nullable<number>;
+    comments?: Nullable<Nullable<Comment>[]>;
 }
 
 export class Comment {

@@ -1,6 +1,15 @@
 import { Inject } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import {
+	Args,
+	Mutation,
+	Parent,
+	Query,
+	ResolveField,
+	Resolver,
+	Subscription,
+} from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
+import { Author } from '../graphql';
 import { PostsService } from '../posts/posts.service';
 import { PUB_SUB } from '../pubsub/pubsub.module';
 import { AuthorsService } from './authors.service';
@@ -16,6 +25,12 @@ export class AuthorsResolver {
 	@Query('author')
 	async author(@Args('id') id: number) {
 		return this.authorsService.findById(id);
+	}
+
+	@ResolveField('posts')
+	async posts(@Parent() author: Author) {
+		const { id } = author;
+		return this.postsService.findByAuthorId(id);
 	}
 
 	@Mutation()
