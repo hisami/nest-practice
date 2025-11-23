@@ -15,10 +15,10 @@ export class PostsService {
 		{ id: 2, title: 'Post 2', votes: 0, authorId: 1 },
 		{ id: 3, title: 'Post 3', votes: 0, authorId: 2 },
 	];
-	findByAuthorId(authorId: number): Post[] {
+	findByAuthorId(authorId: number): PostDbEntity[] {
 		return this.posts.filter((post) => post.authorId === authorId);
 	}
-	upvoteById(postId: number) {
+	upvoteById(postId: number): PostDbEntity {
 		const post = this.posts.find((p) => p.id === postId);
 		if (post) {
 			post.votes = (post.votes || 0) + 1;
