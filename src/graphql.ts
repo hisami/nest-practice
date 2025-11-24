@@ -35,6 +35,8 @@ export abstract class IMutation {
     abstract upvotePost(postId: number): Nullable<Post> | Promise<Nullable<Post>>;
 
     abstract addComment(postId: number, content: string): Nullable<Comment> | Promise<Nullable<Comment>>;
+
+    abstract createPost(title: string, authorId: number): Nullable<Post> | Promise<Nullable<Post>>;
 }
 
 export abstract class ISubscription {

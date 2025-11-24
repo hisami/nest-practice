@@ -25,4 +25,14 @@ export class PostsService {
 		}
 		throw new Error('Post not found');
 	}
+	createPost(title: string, authorId: number): PostDbEntity {
+		const newPost: PostDbEntity = {
+			id: this.posts.length > 0 ? Math.max(...this.posts.map((p) => p.id)) + 1 : 1,
+			title,
+			votes: 0,
+			authorId,
+		};
+		this.posts.push(newPost);
+		return newPost;
+	}
 }

@@ -24,6 +24,7 @@ type Query {
 type Mutation {
 	upvotePost(postId: Int!): Post
 	addComment(postId: Int!, content: String!): Comment
+	createPost(title: String!, authorId: Int!): Post
 }
 
 type Subscription {
